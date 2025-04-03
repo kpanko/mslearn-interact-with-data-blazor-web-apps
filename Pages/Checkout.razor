@@ -67,6 +67,6 @@
         );
         var newOrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
-        NavigationManager.NavigateTo("/myorders");
+        NavigationManager.NavigateTo($"/myorders/{newOrderId}");
     }
 }
