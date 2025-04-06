@@ -1,5 +1,4 @@
-﻿@page "/"
-@layout MainLayout
+@page "/"
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @inject OrderState OrderState
@@ -36,12 +35,12 @@
             @foreach (var configuredPizza in order.Pizzas)
             {
                 <div class="cart-item">
-                    <a @onclick="@(() => OrderState.RemoveConfiguredPizza(configuredPizza))" 
-                        class="delete-item">❌</a>
                     <div class="title">@(configuredPizza.Size)" @configuredPizza.Special!.Name</div>
                     <div class="item-price">
                         @configuredPizza.GetFormattedTotalPrice()
                     </div>
+                    <a @onclick="@(() => OrderState.RemoveConfiguredPizza(configuredPizza))"
+                        class="delete-item">X</a>
                 </div>
             }
         </div>
@@ -54,7 +53,11 @@
     <div class="order-total @(order.Pizzas.Any() ? "" : "hidden")">
         Total:
         <span class="total-price">@order.GetFormattedTotalPrice()</span>
-        <a href="checkout" class="@(OrderState.Order.Pizzas.Count is 0 ? "btn btn-warning disabled" : "btn btn-warning")">
+        <a href="checkout"
+            class="@(OrderState.Order.Pizzas.Count == 0 ?
+                "btn btn-warning disabled" :
+                "btn btn-warning")"
+                >
             Order >
         </a>
     </div>
@@ -64,7 +67,9 @@
     List<PizzaSpecial>? specials = new();
     Order order => OrderState.Order;
 
-    protected override async Task OnInitializedAsync() => 
+    protected override async Task OnInitializedAsync()
+    {
         specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(
-            $"{NavigationManager.BaseUri}specials");
+            NavigationManager.BaseUri + "specials");
+    }
 }

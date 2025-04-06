@@ -1,19 +1,19 @@
 namespace BlazingPizza.Data;
 
-internal static class SeedData
+public static class SeedData
 {
-    internal static Task InitializeAsync(PizzaStoreContext db)
+    public static void Initialize(PizzaStoreContext db)
     {
-        PizzaSpecial[] specials =
-        [
-            new()
+        var specials = new PizzaSpecial[]
+        {
+            new PizzaSpecial()
             {
                 Name = "Basic Cheese Pizza",
                 Description = "It's cheesy and delicious. Why wouldn't you want one?",
                 BasePrice = 9.99m,
                 ImageUrl = "img/pizzas/cheese.jpg",
             },
-            new()
+            new PizzaSpecial()
             {
                 Id = 2,
                 Name = "The Baconatorizor",
@@ -21,7 +21,7 @@ internal static class SeedData
                 BasePrice = 11.99m,
                 ImageUrl = "img/pizzas/bacon.jpg",
             },
-            new()
+            new PizzaSpecial()
             {
                 Id = 3,
                 Name = "Classic pepperoni",
@@ -29,7 +29,7 @@ internal static class SeedData
                 BasePrice = 10.50m,
                 ImageUrl = "img/pizzas/pepperoni.jpg",
             },
-            new()
+            new PizzaSpecial()
             {
                 Id = 4,
                 Name = "Buffalo chicken",
@@ -37,7 +37,7 @@ internal static class SeedData
                 BasePrice = 12.75m,
                 ImageUrl = "img/pizzas/meaty.jpg",
             },
-            new()
+            new PizzaSpecial()
             {
                 Id = 5,
                 Name = "Mushroom Lovers",
@@ -45,7 +45,7 @@ internal static class SeedData
                 BasePrice = 11.00m,
                 ImageUrl = "img/pizzas/mushroom.jpg",
             },
-            new()
+            new PizzaSpecial()
             {
                 Id = 7,
                 Name = "Veggie Delight",
@@ -53,7 +53,7 @@ internal static class SeedData
                 BasePrice = 11.50m,
                 ImageUrl = "img/pizzas/salad.jpg",
             },
-            new()
+            new PizzaSpecial()
             {
                 Id = 8,
                 Name = "Margherita",
@@ -61,8 +61,8 @@ internal static class SeedData
                 BasePrice = 9.99m,
                 ImageUrl = "img/pizzas/margherita.jpg",
             },
-        ];
+        };
         db.Specials.AddRange(specials);
-        return db.SaveChangesAsync();
+        db.SaveChanges();
     }
 }

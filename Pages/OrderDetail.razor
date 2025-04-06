@@ -3,23 +3,25 @@
 @inject HttpClient HttpClient
 
 <div class="main">
-    @if (invalidOrder)
+    @if(invalidOrder)
     {
         <h2>Order not found</h2>
-        <p>We're sorry but this order no longer exists.</p>
+        <p>We're sorry, but this order no longer exists.</p>
     }
-    else if (orderWithStatus is null)
+    else if(orderWithStatus == null)
     {
         <div class="track-order">
             <div class="track-order-title">
                 <h2>
                     <text>Loading...</text>
                 </h2>
+                <p class="ml-auto mb-0">
+                    ...
+                </p>
             </div>
         </div>
     }
-    else
-    {
+    else {
         <div class="track-order">
             <div class="track-order-title">
                 <h2>
@@ -31,7 +33,7 @@
             </div>
             <div class="track-order-body">
                 <div class="track-order-details">
-                    @foreach (var pizza in orderWithStatus.Order.Pizzas)
+                    @foreach(var pizza in orderWithStatus.Order.Pizzas)
                     {
                         <p>
                             <strong>
@@ -48,15 +50,15 @@
 </div>
 
 @code {
-    [Parameter] public int OrderId { get; set; }
+    [Parameter]
+    public int OrderId { get; set; }
 
     OrderWithStatus? orderWithStatus;
     bool invalidOrder = false;
 
     protected override async Task OnParametersSetAsync()
     {
-        try
-        {
+        try {
             orderWithStatus = await HttpClient.GetFromJsonAsync<OrderWithStatus>(
                 $"{NavigationManager.BaseUri}orders/{OrderId}");
         }

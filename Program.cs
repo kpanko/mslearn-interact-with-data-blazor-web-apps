@@ -17,7 +17,7 @@ using (var scope = scopeFactory.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<PizzaStoreContext>();
     if (await db.Database.EnsureCreatedAsync())
     {
-        await SeedData.InitializeAsync(db);
+        SeedData.Initialize(db);
     }
 }
 

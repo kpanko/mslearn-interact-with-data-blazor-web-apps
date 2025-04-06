@@ -684,7 +684,6 @@ input[type=range] {
 .checkout-cols {
     display: flex;
 }
-
     .checkout-cols h4 {
         margin-bottom: 1.5rem;
     }
